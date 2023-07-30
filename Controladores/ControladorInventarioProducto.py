@@ -28,15 +28,7 @@ class ControladorInventarioProducto():
     def create(self, data):
         print("Crear un Inventario")
         nuevoInventarioProducto = InventarioProducto(data)
-        #nuevoInventarioProducto.inventario = data["inventario"]
-        #nuevoInventarioProducto.producto = data["producto"]
         return self.repositorioInventarioProducto.save(nuevoInventarioProducto)
-
-    #{
-    #    "_id": "64c535a2fc1d152c2b417792",
-    #    "inventario": "64c534fdfc1d152c2b41778f",
-    #    "producto": "64be7e83ef2a10e082aa8a02"
-    #},
 
     def show(self, id):
         print("Mostrando un Inventario Producto con id ", id)

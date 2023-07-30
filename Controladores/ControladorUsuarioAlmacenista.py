@@ -15,24 +15,24 @@ class ControladorUsuarioAlmacenista():
         print("Listar todos los UsuariosAlmacenista")
         return self.repositorioUsuarioAlmacenista.findAll()
 
-    def create(self, infoUsuarioAlmacenista, id_Almacenista):
-        print("Crear un UsuarioAlmacenista")
-        nuevoUsuarioAlmacenista = UsuarioAlmacenista(infoUsuarioAlmacenista)
-        nuevoUsuarioAlmacenista.Almacenista=id_Almacenista
-        print(self.repositorioUsuarioAlmacenista.save(nuevoUsuarioAlmacenista))
+    def create(self, data):
+        print("Crear un Inventario")
+        nuevoUsuarioAlmacenista = UsuarioAlmacenista(data)
         return self.repositorioUsuarioAlmacenista.save(nuevoUsuarioAlmacenista)
 
     def show(self, id):
         print("Mostrando un Usuario Almacenista con id ", id)
-        elUsuarioAlmacenista = UsuarioAlmacenista(self.repositorioUsuarioAlmacenista.findById(id))
-        return elUsuarioAlmacenista.__dict__
+        elUsuarioAlmacenista = self.repositorioUsuarioAlmacenista.query({"usuario": id})
+        # como convertir este dict en una lista de objetos inventarioproducto ?? el append funciona?
+        for usuarioalmacenista in elUsuarioAlmacenista:
+            idusuario = usuarioalmacenista["almacenista"]
+            usuarioalmacenista["almacenista"] = Almacenista(self.repositorioAlmacenista.findById(idusuario)).__dict__
+        return elUsuarioAlmacenista
 
-    def update(self, id, infoUsuarioAlmacenista, id_Almacenista):
-        elUsuarioAlmacenista = UsuarioAlmacenista(self.repositorioUsuarioAlmacenista.findById(id))
-        elUsuarioAlmacenista.correo = infoUsuarioAlmacenista["correo"]
-        elUsuarioAlmacenista.contraseña = infoUsuarioAlmacenista["contraseña"]
-        elAlmacenista = Almacenista(self.repositorioAlmacenista.findById(id_Almacenista))
-        elUsuarioAlmacenista.Almacenista = elAlmacenista
+    def update(self, id_usuarioalmacenista, dataUsuarioAlmacenista):
+        elUsuarioAlmacenista = UsuarioAlmacenista(self.repositorioUsuarioAlmacenista.findById(id_usuarioalmacenista))
+        elUsuarioAlmacenista.usuario = dataUsuarioAlmacenista["usuario"]
+        elUsuarioAlmacenista.almacenista = dataUsuarioAlmacenista["almacenista"]
         return self.repositorioUsuarioAlmacenista.save(elUsuarioAlmacenista)
 
     def delete(self, id):

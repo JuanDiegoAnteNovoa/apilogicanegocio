@@ -218,37 +218,29 @@ def getUsuarioAlmacenista():
 
 
 @app.route("/usuarioalmacenista/<string:id>", methods=['GET'])
-def getInventarioAlmacenista(id):
+def getUsuarioAlmacenistaid(id):
     json = miControladorUsuarioAlmacenista.show(id)
     return jsonify(json)
 
 
-@app.route("/usuarioalmacenista/almacenista/<string:id_almacenista>", methods=['POST'])
-def crearUsuarioAlmacenista(id_almacenista):
+@app.route("/usuarioalmacenista", methods=['POST'])
+def crearUsuarioAlmacenista():
     data = request.get_json()
-    json = miControladorUsuarioAlmacenista.create(data, id_almacenista)
+    json = miControladorUsuarioAlmacenista.create(data)
     return jsonify(json)
 
 
-@app.route("/usuarioalmacenista/<string:id_usuarioalmacenista>/almacenista/<string:id_almacenista>", methods=['PUT'])
-def modificarInventarioAlmacenista(id_usuarioalmacenista, id_almacenista):
+@app.route("/usuarioalmacenista/<string:id_usuarioalmacenista>", methods=['PUT'])
+def modificarUsuarioAlmacenista(id_usuarioalmacenista,):
     data = request.get_json()
-    json = miControladorUsuarioAlmacenista.update(id_usuarioalmacenista, data, id_almacenista)
+    json = miControladorUsuarioAlmacenista.update(id_usuarioalmacenista, data)
     return jsonify(json)
 
 
 @app.route("/usuarioalmacenista/<string:id_usuarioalmacenista>", methods=['DELETE'])
-def eliminarInventarioAlmacenista(id_usuarioalmacenista):
+def eliminarUsuarioAlmacenista(id_usuarioalmacenista):
     json = miControladorUsuarioAlmacenista.delete(id_usuarioalmacenista)
     return jsonify(json)
-
-
-
-"""
-Método leer el archivo de configuración del proyecto,
-retornará un diccionario el cual posee la información dentro del
-JSON y se podrá acceder a los atributos necesarios.
-"""
 
 
 def loadFileConfig():
