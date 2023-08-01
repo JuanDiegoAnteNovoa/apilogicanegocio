@@ -34,9 +34,3 @@ class ControladorAlmacenista():
 
     def delete(self, id):
         return self.repositorioAlamcenista.delete(id)
-
-    """def asignarProducto(self, id, id_producto):
-        almacenistaActual = Almacenista(self.repositorioAlamcenista.findById(id))
-        productoActual = Producto(self.repositorioProducto.findById(id_producto))
-        almacenistaActual.producto = productoActual
-        return self.repositorioAlamcenista.save(almacenistaActual)"""
