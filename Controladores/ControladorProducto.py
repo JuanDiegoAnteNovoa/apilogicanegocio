@@ -27,6 +27,8 @@ class ControladorProducto():
         ProductoActual.precio = elProducto["precio"]
         ProductoActual.cantidad = elProducto["cantidad"]
         ProductoActual.descripcion = elProducto["descripcion"]
+        ProductoActual.esta_inventario = elProducto["esta_inventario"]
+
         return self.repositorioProducto.save(ProductoActual)
 
     def delete(self, id):
