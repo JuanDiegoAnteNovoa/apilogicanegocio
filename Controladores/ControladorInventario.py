@@ -26,7 +26,14 @@ class ControladorInventario():
 
     def index(self):
         print("Listar todos los Inventario")
-        return self.repositorioInventario.findAll()
+        inventarios= self.repositorioInventario.findAll()
+        for inventario in inventarios:
+
+            idalmacenista=inventario["almacenista"]
+            busqueda=self.repositorioAlmacenista.findById(idalmacenista)["nombre"]
+            inventario["almacenista"]=busqueda
+
+        return inventarios
 
     """Asignacion de almacenista y producto a inventario"""
 
@@ -39,13 +46,15 @@ class ControladorInventario():
     def show(self, id):
         print("Mostrando un Inventario con id ", id)
         elInventario = Inventario(self.repositorioInventario.findById(id))
-        elInventario.producto=InventarioProducto()
+
         return elInventario.__dict__
 
     def update(self, id, infoInventario):
         elInventario = Inventario(self.repositorioInventario.findById(id))
         elInventario.fecha = infoInventario["fecha"]
         elInventario.almacenista = infoInventario["almacenista"]
+        elInventario.nombreinventario = infoInventario["nombreinventario"]
+        print(elInventario)
         return self.repositorioInventario.save(elInventario)
 
     def delete(self, id):
